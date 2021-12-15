@@ -1,14 +1,10 @@
 from mtcnn import MTCNN
 import cv2
-from matplotlib import pyplot as plt
 from PIL import Image
-import pandas as pd
-import gzip
 import os
 import numpy as np
-import pickle
 
-IMG_DIR  = "Demo_img"
+IMG_DIR  = "Demo_img/"
 
 def image(base_dir):
 #     viList = os.listdir(base_dir)
@@ -35,7 +31,7 @@ def load_test(base_dir,images_dic):
     faces_li = []
     heads = []
     record = []
-    ImaList = [f for f in os.listdir('TestData') if not f.startswith('.')]
+    ImaList = [f for f in os.listdir(IMG_DIR) if not f.startswith('.')]
 #     ImaList = os.listdir(base_dir)
     det = []
     #use mtcnn to detect the faces and append to record(image,faces)
