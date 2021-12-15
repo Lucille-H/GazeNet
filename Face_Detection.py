@@ -8,14 +8,7 @@ import os
 import numpy as np
 import pickle
 
-
-
-
-
-    # with open ('image_dict_frames_try.h5', 'wb') as f:
-    #     pickle.dump(res,f)
-
-
+IMG_DIR  = "Demo_img"
 
 def image(base_dir):
 #     viList = os.listdir(base_dir)
@@ -28,7 +21,7 @@ def image(base_dir):
         im = im.resize((256, 256))
         im_ar = np.array(im)
         a = im_ar.astype("float") / 255.0
-        print(np.shape(a))
+        # print(np.shape(a))
         res[video]=a
     return res
 
@@ -60,7 +53,7 @@ def load_test(base_dir,images_dic):
         h= np.size(img)[1]
 #         print("pair:",pair)
 #         print("im_faces:",im_faces)
-        print("file:",filename)
+#         print("file:",filename)
         for face in im_faces:
             filenames.append(filename)
             (head_x,head_y) = head_cord(face)
@@ -69,7 +62,7 @@ def load_test(base_dir,images_dic):
             lty = face['box'][1]
             rbx = ltx + face['box'][2]
             rby = lty +face['box'][3]
-            print((ltx,lty,rbx,rby))
+            # print((ltx,lty,rbx,rby))
             img = Image.open(base_dir+'/'+filename ).convert('RGB')
             face_ima = img.crop((ltx,lty,rbx,rby))
 #                 (face['box'][0], face['box'][1],(face['box'][0]+face['box'][2]),(face['box'][1]+face['box'][3])))
@@ -83,7 +76,7 @@ def load_test(base_dir,images_dic):
 
 
 if __name__=="__main__":
-    images_dic = image('TestData')
-    filenames,images,faces,heads=load_test('TestData',images_dic)
+    images_dic = image(IMG_DIR)
+    filenames,images,faces,heads=load_test(IMG_DIR,images_dic)
 
 

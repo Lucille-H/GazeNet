@@ -18,6 +18,10 @@ import pandas as pd
 import gzip
 import os
 
+IMG_DIR  = "Demo_img"
+OUT_DIR = "Demo_res"
+
+
 from Face_Detection import image, load_test
 
 def load_model():
@@ -37,7 +41,7 @@ def visualize(filenames,heads, preds):
     df_valfnames = pd.DataFrame(zip(filenames, range(len(filenames))), columns=['filenames', 'index'])
     grouped_df = df_valfnames.groupby(['filenames'], as_index=False).groups
     for i, k in enumerate(grouped_df.keys()):
-        ima = Image.open('TestData/' + k)
+        ima = Image.open(IMG_DIR + k)
         w = np.size(ima)[0]
         h = np.size(ima)[1]
 
@@ -49,11 +53,11 @@ def visualize(filenames,heads, preds):
                       preds[0][res][1] * h - heads[res][1] * h, color="red", width=1, head_width=20)
         plt.imshow(ima.convert('RGB'))
         # plt.show()
-        plt.save('Result/'+k)
+        plt.save(OUT_DIR+k)
 
 if __name__=="__main__":
-    images_dic = image('TestData')
-    filenames,images,faces,heads=load_test('TestData',images_dic)
+    images_dic = image(IMG_DIR)
+    filenames,images,faces,heads=load_test(IMG_DIR,images_dic)
     model = load_model()
     preds = predict_gaze(model, images, faces, heads)
     visualize(filenames, heads, preds)
